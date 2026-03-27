@@ -1,17 +1,15 @@
-// Portfolio filtering
 const filterButtons = document.querySelectorAll('.filter-btn');
 const portfolioItems = document.querySelectorAll('.portfolio-item');
 
+/* FILTER */
 filterButtons.forEach(button => {
   button.addEventListener('click', () => {
     const filter = button.getAttribute('data-filter');
 
     portfolioItems.forEach(item => {
-      if (filter === 'all' || item.getAttribute('data-category') === filter) {
-        item.style.display = 'block';
-      } else {
-        item.style.display = 'none';
-      }
+      item.style.display =
+        filter === 'all' || item.getAttribute('data-category') === filter
+        ? 'block' : 'none';
     });
 
     filterButtons.forEach(btn => btn.classList.remove('active'));
@@ -19,27 +17,7 @@ filterButtons.forEach(button => {
   });
 });
 
-// Smooth scroll with offset
-document.querySelectorAll('nav a').forEach(link => {
-  link.addEventListener('click', function(e) {
-    e.preventDefault();
-    const targetId = this.getAttribute('href');
-    const target = document.querySelector(targetId);
-
-    if (target) {
-      const headerOffset = 80; // Offset for header
-      const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = elementPosition - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-  });
-});
-
-// Lightbox functionality
+/* LIGHTBOX */
 const lightbox = document.createElement('div');
 lightbox.classList.add('lightbox');
 document.body.appendChild(lightbox);
@@ -49,36 +27,40 @@ lightbox.appendChild(lightboxImg);
 
 portfolioItems.forEach(item => {
   const img = item.querySelector('img');
+
   img.addEventListener('click', () => {
     lightbox.classList.add('active');
     lightboxImg.src = img.src;
-    lightboxImg.alt = img.alt;
   });
 });
 
-// Close lightbox when clicked
 lightbox.addEventListener('click', () => {
   lightbox.classList.remove('active');
 });
 
-// Fade-in on scroll
-const faders = document.querySelectorAll('.fade-in-section');
+/* HOVER LOCK SYSTEM */
+const titleBox = document.getElementById('work-title');
+const descriptionBox = document.getElementById('work-description');
 
-const appearOptions = {
-  threshold: 0.2
-};
+let activeTitle = "Selected Work";
+let activeDescription = "Hover over a project to view details.";
 
-const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) {
-      return;
-    } else {
-      entry.target.classList.add('visible');
-      appearOnScroll.unobserve(entry.target);
-    }
+portfolioItems.forEach(item => {
+  const img = item.querySelector('img');
+
+  img.addEventListener('mouseenter', () => {
+    const title = item.getAttribute('data-title');
+    const description = item.getAttribute('data-description');
+
+    titleBox.textContent = title;
+    descriptionBox.textContent = description;
+
+    activeTitle = title;
+    activeDescription = description;
   });
-}, appearOptions);
 
-faders.forEach(fader => {
-  appearOnScroll.observe(fader);
+  img.addEventListener('mouseleave', () => {
+    titleBox.textContent = activeTitle;
+    descriptionBox.textContent = activeDescription;
+  });
 });
