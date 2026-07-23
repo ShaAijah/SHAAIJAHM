@@ -8,6 +8,7 @@ body {
   background-attachment: fixed;
   color: #f76ea2;
   font-family: 'Poppins', sans-serif;
+   padding-top:120px;
 }
 
 /* RESET */
@@ -29,13 +30,6 @@ body {
   padding-top: 0.5rem;
 }
 
-/* HEADER (OPTION B: flexible height for big logo) */
-header {
-  position: sticky;
-  top: 0;
-  z-index: 9999;
-  padding: 10px 0;
-}
 
 /* NAV */
 .nav {
@@ -57,11 +51,10 @@ header {
   align-items: flex-start;
 }
 
-/* SIDEBAR (adjusted to clear header height) */
 .left-panel {
   width: 220px;
   position: sticky;
-  top: 110px; /* accounts for taller header */
+  top: 140px;
   z-index: 1;
 }
 
@@ -182,35 +175,61 @@ header {
   max-width: 90%;
   max-height: 90%;
 }
-/* MARQUEE CONTAINER */
-.marquee {
-  overflow: hidden;
-  white-space: nowrap;
-  position: sticky;
-  top: 0;
-  z-index: 9999;
-  padding: 8px 0;
-  width: 100w;
+.about{
+    margin-top:8rem;
+    padding:5rem 0;
+    border-top:1px solid #f76ea2;
 }
 
-/* TRACK */
-.marquee-track {
- display: flex;
-  width: max-content; /* key fix */
-  animation: scrollMarquee 8s linear infinite;
+.about h2{
+    margin-bottom:1.5rem;
+    font-size:2rem;
 }
 
-/* LOGO */
-.marquee img {
-  height: 110px;
+.about p{
+    max-width:700px;
+    line-height:1.8;
+    color:#d6d6d6;
+}
+/* -------------------- */
+/* MARQUEE */
+/* -------------------- */
+
+.site-header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:9999;
+    background:black;
 }
 
-/* ANIMATION */
-@keyframes scrollMarquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-150%);
-  }
+.marquee{
+    width:100%;
+    overflow:hidden;
+    white-space:nowrap;
+    border-bottom:1px solid #f76ea2;
+}
+
+.marquee-track{
+    display:flex;
+    width:max-content;
+    animation:marquee 28s linear infinite;
+}
+
+.marquee img{
+    height:110px;
+    flex-shrink:0;
+}
+
+@keyframes marquee{
+
+    from{
+        transform:translateX(0);
+    }
+
+    to{
+        transform:translateX(-50%);
+    }
+
 }
